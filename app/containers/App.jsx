@@ -7,13 +7,15 @@ import CardBox from '../components/CardBox';
 import state from '../../state_structure.js';
 
 const App = () => (
-  <div>
-    <CardBox allCards={ state.cards } />
+  <div className="container" id="main">
+    <div className="row">
+      <CardBox allCards={ state.cards } />
 
-    {/* <Header />
-    <GameSelector />
-    <Dashboard />*/}
-    <ChatBar />
+      {/* <Header />
+      <GameSelector />
+      <Dashboard />*/}
+      <ChatBar />
+    </div>
   </div>
 );
 
