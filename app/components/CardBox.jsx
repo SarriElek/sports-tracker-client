@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Card from './card.jsx';
+import Card from './Card';
 
 export default class CardBox extends Component {
   // skeleton to be updated
-  
+
   render() {
     // cards container rendering all cards
     const { allCards } = this.props;
