@@ -23,6 +23,7 @@ class Chat extends Component {
   }
 
   handleSubmit(event) {
+    event.preventDefault();
     const message = {
       room: 'test',
       message: {
