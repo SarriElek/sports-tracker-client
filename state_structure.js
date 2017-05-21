@@ -42,9 +42,20 @@ const state = {
     visible: [
       'NBA', 'MLB', 'MLB_TODAY'
     ],
-    games: [
-      // all game data here
-    ]
+    games: {
+      NBA: [
+      // NBA games
+      ],
+      MLB: {
+        MLB_TODAY: [
+          // todays games
+        ]
+      },
+      NHL: [
+        // NHL games
+      ]
+
+    }
   },
   user: {
     name: 'George'
