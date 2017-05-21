@@ -11,7 +11,7 @@ class Chat extends Component {
     socket: PropTypes.object.isRequired
   };
 
-  constructor() {
+  constructor(props) {
     super(props)
 
     this.handleSubmit.bind(this);
