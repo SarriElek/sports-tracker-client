@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Message from './Message';
 import MessageBox from './MessageBox';
 import Rooms from './Rooms';
+import * as actions from '../actions/chat';
 
 class Chat extends Component {
   static propTypes = {
@@ -36,7 +37,8 @@ class Chat extends Component {
   }
 
   onChange(event) {
-    console.log(event);
+    dispatch(actions.inputChange(event.target.value))
+    // console.log(event);
   }
 
   render() {
