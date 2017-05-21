@@ -11,10 +11,17 @@ class Chat extends Component {
     socket: PropTypes.object.isRequired
   };
 
+  constructor() {
+    super(props)
+
+    this.handleSubmit.bind(this);
+    this.onChange.bind(this);
+
+  }
+
   componentDidMount() {
-    console.log(this.props);
     const { socket, user, dispatch } = this.props;
-    this.props.socket.emit('chat mounted', user);
+    socket.emit('post', 'posting!');
     socket.on('news', msg => console.log(msg));
     socket.on('post', msg =>
       dispatch(actions.receiveMessage(msg))
@@ -25,6 +32,7 @@ class Chat extends Component {
   }
 
   handleSubmit(event) {
+    const { socket, user, dispatch } = this.props;
     event.preventDefault();
     const message = {
       room: 'test',
@@ -37,6 +45,7 @@ class Chat extends Component {
   }
 
   onChange(event) {
+    const { socket, user, dispatch } = this.props;
     dispatch(actions.inputChange(event.target.value))
     // console.log(event);
   }
