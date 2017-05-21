@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import io from 'socket.io-client';
-import Chat from '../components/Chat';\
+import Chat from '../components/Chat';
 
 const socketHost = process.env.SOCKET_HOST || 'http://localhost:8080';
 
