@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import io from 'socket.io-client';
 import Chat from '../components/Chat';
 
-const socket = io('', { path: '/' });
+const socket = io.connect('http://localhost:8080');
 
 class ChatBar extends React.Component {
 

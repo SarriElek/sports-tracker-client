@@ -13,6 +13,7 @@ class Chat extends Component {
   componentDidMount() {
     const { socket, user, dispatch } = this.props;
     socket.emit('chat mounted', user);
+    socket.on('news', msg => console.log(msg));
     socket.on('new message', msg =>
       dispatch(actions.receiveMessage(msg))
     );
