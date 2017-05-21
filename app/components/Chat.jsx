@@ -21,33 +21,39 @@ class Chat extends Component {
 
   componentDidMount() {
     const { socket, user, dispatch } = this.props;
-    socket.emit('post', 'posting!');
     socket.on('news', msg => console.log(msg));
-    socket.on('post', msg =>
-      dispatch(actions.receiveMessage(msg))
-    );
+
     socket.emit('join', {
-      room: 'test'
+      room: 'test',
+      user: 'jeff'
     });
+    socket.on('post', msg => {
+      return dispatch(actions.receiveMessage(msg))
+    });
+    socket.on('new user', msg => {
+      console.log('new user', msg);
+    })
   }
 
-  handleSubmit(event) {
-    const { socket, user, dispatch } = this.props;
+  handleSubmit(event, data) {
+    const { socket, user, dispatch, input } = this.props;
     event.preventDefault();
-    const message = {
-      room: 'test',
-      message: {
-        user: 'Jeff',
-        content: event.data
+    if (input != '') {
+      dispatch(actions.sendMessage());
+      const message = {
+        room: 'test',
+        message: {
+          user: 'Jeff',
+          content: input
+        }
       }
+      socket.emit('post', message);
     }
-    socket.emit('post', message);
   }
 
   onChange(event) {
     const { socket, user, dispatch } = this.props;
     dispatch(actions.inputChange(event.target.value))
-    // console.log(event);
   }
 
   render() {
@@ -58,7 +64,10 @@ class Chat extends Component {
         <div className="message-list">
           <ul>
             { messages.map(message =>
-              <Message message={ message } />
+              <Message
+                key={ message.id }
+                message={ message }
+              />
             )}
           </ul>
         </div>

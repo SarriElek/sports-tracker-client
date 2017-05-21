@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 const RoomTab = props => (
   <div className="chat-tabs">
     <a
-      key={ props.room.game }
-      className={ props.room.active ? 'active item' : 'item' }
+      className={ props.active ? 'active room-tab' : 'room-tab' }
       onClick={ () => props.onTabClick(props.room.game) }
       role="button"
       tabIndex={ 0 }

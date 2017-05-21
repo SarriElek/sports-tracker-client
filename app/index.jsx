@@ -12,15 +12,17 @@ const initialState = {
     active: 0, // array index
     rooms: [
       {
-        game: 1905, // unique id for room
+        game: 'test', // unique id for room
         messages: [
           {
             user: 'somebody',
-            content: 'steph is the best'
+            content: 'steph is the best',
+            id: 99
           },
           {
             user: 'somebody else',
-            content: 'lebron though'
+            content: 'lebron though',
+            id: 109
           }
         ],
         onlineUsers: 12,

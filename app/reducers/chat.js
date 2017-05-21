@@ -14,16 +14,17 @@ function chat(state = defaultState, action) {
         ]
       };
     case 'RECEIVE_MESSAGE': {
-      const roomForPost = state.rooms.filter(room => room.game === action.room);
-      const otherRooms = state.rooms.filter(room => room.game !== action.room);
-      roomForPost.messages.push(action.message);
-      return {
+      const roomForPost = state.rooms.filter(room => room.game === action.message.room);
+      const otherRooms = state.rooms.filter(room => room.game !== action.message.room);
+      roomForPost[0].messages.push(action.message);
+      const newState = {
         ...state,
         rooms: [
           ...otherRooms,
-          roomForPost
+          ...roomForPost
         ]
       };
+      return newState;
     }
     case 'SEND_MESSAGE': {
       const roomToUpdate = state.rooms[state.active];

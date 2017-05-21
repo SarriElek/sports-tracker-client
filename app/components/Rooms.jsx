@@ -12,14 +12,18 @@ class Rooms extends React.Component {
       messages: [
         {
           user: 'somebody',
-          content: 'steph is the best'
+          content: 'steph is the best',
+          id: 99
         }
       ]
     }];
     return (
       <section>
         { rooms.map(room =>
-          <RoomTab room={ room } />
+          <RoomTab
+            key={ room.game }
+            room={ room }
+          />
         )}
       </section>
     );

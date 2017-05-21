@@ -23,7 +23,8 @@ class ChatBar extends React.Component {
 function mapStateToProps(state) {
   return {
     rooms: state.chat.rooms,
-    active: state.chat.active
+    active: state.chat.active,
+    input: state.chat.rooms[state.chat.active].input
   };
 }
 

@@ -7,8 +7,7 @@ const Message = ({ message }) => (
   </li>
 );
 
-Message.propTypes = {
-  message: PropTypes.object.isRequired
-};
+// Message.propTypes = {
+// };
 
 export default Message;
