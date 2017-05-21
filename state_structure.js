@@ -22,13 +22,13 @@ const state = {
   cards: [
     {
       league: 'nba',
+      display: 'BASIC', // 'STATS', 'PLAY_BY_PLAY' other options
       homeTeam: 'SAS',
       awayTeam: 'GSW',
       homeScore: 150,
       awayScore: 85,
       quarter: 4,
-      timeRemaining: 70,
-      display: 'BASIC' // 'STATS', 'PLAY_BY_PLAY' other options
+      timeRemaining: 70
     },
     {
       league: 'nhl',
