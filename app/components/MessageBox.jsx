@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 
 const MessageBox = ({ input, onChange, handleSubmit }) => (
   <form onSubmit={ handleSubmit }>
-    <label htmlFor="chat-input">
-      Name:
-      <input type="text" id="chat-input" value={ input } onChange={ onChange } />
-    </label>
+    <input type="text" id="chat-input" value={ input } onChange={ onChange } />
     <input type="submit" value="Send" />
   </form>
 );
