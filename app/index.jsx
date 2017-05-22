@@ -13,7 +13,7 @@ const initialState = {
     rooms: [
       {
         game: 'test', // unique id for room
-        name: 2,
+        name: 'one',
         id: 17,
         messages: [
           {
@@ -32,7 +32,7 @@ const initialState = {
       },
       {
         game: 'tefdsfdsfst', // unique id for room
-        name: 1,
+        name: 'two',
         id: 172,
         messages: [
           {
@@ -51,7 +51,7 @@ const initialState = {
       },
       {
         game: 'not test', // unique id for room
-        name: 3,
+        name: 'three',
         id: 27,
         messages: [
           {

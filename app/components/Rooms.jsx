@@ -6,9 +6,10 @@ import * as validations from '../prop_validations/chat';
 class Rooms extends React.Component {
 
   render() {
+    const sortedRooms = this.props.rooms.sort();
     return (
       <section>
-        { this.props.rooms.map((room, index) =>
+        { sortedRooms.map((room, index) =>
           (
             <RoomTab
               key={ room.id }
