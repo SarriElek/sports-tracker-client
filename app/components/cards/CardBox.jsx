@@ -6,12 +6,12 @@ export default class CardBox extends Component {
 
   render() {
     // cards container rendering all cards
-    const { allCards } = this.props;
+    const { allCards, joinRoom, socket } = this.props;
 
     return (
-      <div className="card-container col-xs-12 col-md-9">
+      <div className="card-container col-xs-12 col-s-9">
         <div className="row">
-          { allCards.map(card => <Card key={ card.gameId } { ...card } />) }
+          { allCards.map(card => <Card key={ card.gameId } joinRoom={ joinRoom } socket={ socket } { ...card } />) }
         </div>
       </div>
     );
@@ -27,5 +27,7 @@ CardBox.propTypes = {
     awayScore: PropTypes.number.isRequired,
     quarter: PropTypes.number.isRequired,
     timeRemaining: PropTypes.number.isRequired
-  }).isRequired).isRequired
+  }).isRequired).isRequired,
+  joinRoom: PropTypes.func.isRequired,
+  socket: PropTypes.object.isRequired
 };
