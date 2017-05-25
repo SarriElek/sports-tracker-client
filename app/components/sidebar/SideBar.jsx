@@ -47,7 +47,7 @@ class Sidebar extends Component {
           </li>
         </ul>
         <ul className="sub-menu collapse" id="nhl">
-          { this.props.gamesNHL.map(game => <Game key={ game.id } {...game}/> ) }
+          { this.props.gamesNHL.map(game => <Game key={ game.id } sport='NHL' {...game}/> ) }
           { this.props.gamesNHL.length == 0 && <li>Sorry, no games today</li> }
         </ul>
         <ul>
@@ -56,7 +56,7 @@ class Sidebar extends Component {
           </li>
         </ul>
         <ul className="sub-menu collapse" id="nfl">
-          { this.props.gamesNFL.map(game => <Game key={ game.id } {...game}/> ) }
+          { this.props.gamesNFL.map(game => <Game key={ game.id } sport='NFL' {...game}/> ) }
           { this.props.gamesNFL.length == 0 && <li>Sorry, no games today</li> }
         </ul>
 
@@ -66,7 +66,7 @@ class Sidebar extends Component {
           </li>
         </ul>
         <ul className="sub-menu collapse" id="mlb">
-          { this.props.gamesMLB.map(game => <Game key={ game.id } {...game}/> ) }
+          { this.props.gamesMLB.map(game => <Game key={ game.id } sport='MLB' {...game}/> ) }
           { this.props.gamesMLB.length == 0 && <li>Sorry, no games today</li> }
         </ul>
 
@@ -76,7 +76,7 @@ class Sidebar extends Component {
           </li>
         </ul>
         <ul className="sub-menu collapse" id="nba">
-          { this.props.gamesNBA.map(game => <Game key={ game.id } {...game}/> ) }
+          { this.props.gamesNBA.map(game => <Game key={ game.id } sport='NBA' {...game}/> ) }
           { this.props.gamesNBA.length == 0 && <li>Sorry, no games today</li> }
         </ul>
       </div>
@@ -93,6 +93,6 @@ const mapStateToProps = state => {
     gamesNBA: state.sidebar.gamesNBA,
     receivedAt: state.sidebar.receivedAt
   }
-}
+};
 
 export default connect(mapStateToProps)(Sidebar);

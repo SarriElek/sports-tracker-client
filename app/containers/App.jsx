@@ -9,10 +9,10 @@ import SideBar from '../components/sidebar/SideBar';
 import CardBox from '../components/cards/CardBox';
 import state from '../../state_structure';
 
-const App = () => (
+const App = (props) => (
   <div>
     <TopNav />
-    <SideBar />
+    <SideBar/>
 
     <div className="container" id="main">
       <div className="row">
@@ -28,4 +28,4 @@ const App = () => (
   </div>
 );
 
-export default App;
+export default App

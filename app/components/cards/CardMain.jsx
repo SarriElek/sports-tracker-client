@@ -8,7 +8,7 @@ const CardMain = ({ ...props }) => (
     </div>
 
     <div className="d-flex justify-content-around">
-      <div className="card-title">April 1, 2017</div>
+      <div className="card-title">{ props.date }</div>
     </div>
 
     <div className="d-flex justify-content-around">

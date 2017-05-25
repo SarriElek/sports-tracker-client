@@ -21,7 +21,7 @@ export const receiveMLB = (json) => ({
 
 export const receiveNHL = (json) => ({
   type: 'RECEIVE_NHL',
-  gamesNHL: json.dailygameschedule.gameentry|| [],
+  gamesNHL: json.dailygameschedule.gameentry || [],
   receivedAt: Date.now()
 })
 
