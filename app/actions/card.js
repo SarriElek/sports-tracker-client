@@ -1,6 +1,7 @@
 const moment = require('moment-timezone');
 import mlb from '../play_filters/mlb';
 import nhl from '../play_filters/nhl';
+import nba from '../play_filters/nba';
 
 
 const BASEBALL = 'mlb';
@@ -29,22 +30,20 @@ export const receiveCard = (data) => ({
 })
 
 function gameSelector(id, json){
-  console.log('inside gameselector',id);
   return json.scoreboard.gameScore.find(obj => {
     return obj.game.ID ==+ id.toString();
   });
 }
 
 export const fetchCardInfo = (game) => (dispatch) =>  {
-const game_starting_time = moment(game.time,'hh:mmA');
+  const game_starting_time = moment(game.time,'hh:mmA');
   if(game_starting_time.isBefore(moment())){
     const date = game.date.replace(/-/g , '');
-     const data = {};
-     console.log(`https://www.mysportsfeeds.com/api/feed/pull/${game.league}/latest/scoreboard.json?fordate=${date}&team=${game.homeTeam}`);
+    const data = {};
     return fetch(`https://www.mysportsfeeds.com/api/feed/pull/${game.league}/latest/scoreboard.json?fordate=${date}`, {
        method: 'get',
        headers: {
-         'Authorization': 'Basic '+btoa('sportsTracker:sportsTracker'),
+         'Authorization': 'Basic '+btoa('${username}:${password}'),
          'Accept': 'application/json',
          'Content-Type': 'application/json'
        }
@@ -52,7 +51,6 @@ const game_starting_time = moment(game.time,'hh:mmA');
     .then(response => response.json())
     .then(json => {
         const selectedGame = gameSelector(game.gameId, json);
-        console.log(selectedGame);
         data.id = game.gameId;
         data.league = game.league;
         data.display = 'BASIC';
@@ -69,19 +67,19 @@ const game_starting_time = moment(game.time,'hh:mmA');
       return fetch(`https://www.mysportsfeeds.com/api/feed/pull/${game.league}/latest/game_playbyplay.json?gameid=${game.gameId}`, {
        method: 'get',
        headers: {
-         'Authorization': 'Basic '+btoa('sportsTracker:sportsTracker'),
+         'Authorization': 'Basic '+btoa('${username}:${password}'),
          'Accept': 'application/json',
          'Content-Type': 'application/json'
        }
      }).then(response => response.json())
       .then(json => {
-        console.log(json);
         switch (game.league){
           case BASEBALL:
             data.plays = mlb(json);
             dispatch(receiveCard(data))
             break;
           case BASKETBALL:
+            data.plays = nba(json);
             dispatch(receiveCard(data))
             break;
           case HOCKEY:

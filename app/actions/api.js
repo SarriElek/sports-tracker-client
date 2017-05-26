@@ -39,14 +39,14 @@ export const getStartingTime = (game) => {
   const time = game.time;
   const city = game.homeTeam.City;
   const location = game.location;
-  return fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}+${city}&types=(cities)&sensor=false&key=AIzaSyC6iNRXGotnvA3S6qis6b6jbhtYkkRnCjQ`)
+  return fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}+${city}&types=(cities)&sensor=false&key=${googleAPIkey}`)
   .then(response => response.json())
   .then(json => {
     const result = json.results[0];
     const latitude = result.geometry.location.lat;
     const longitude = result.geometry.location.lng;
     const location = `${latitude},${longitude}`;
-    return fetch(`https://maps.googleapis.com/maps/api/timezone/json?location=${location}&timestamp=1331161200&sensor=false&key=AIzaSyC6iNRXGotnvA3S6qis6b6jbhtYkkRnCjQ`)
+    return fetch(`https://maps.googleapis.com/maps/api/timezone/json?location=${location}&timestamp=1331161200&sensor=false&key=${googleAPIkey}`)
     .then(response => response.json())
     .then(json => {
       const timezone = json.timeZoneId;
@@ -61,7 +61,7 @@ export const fetchFeeds = (sport, date) => (dispatch) => {
   return fetch(`https://www.mysportsfeeds.com/api/feed/pull/${sport}/latest/daily_game_schedule.json?fordate=${date}`, {
     method: 'get',
     headers: {
-      Authorization: `Basic ${btoa('sportsTracker:sportsTracker')}`,
+      Authorization: `Basic ${btoa('${username}:${password}')}`,
       Accept: 'application/json',
       'Content-Type': 'application/json'
     }

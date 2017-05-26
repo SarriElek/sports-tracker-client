@@ -8,7 +8,7 @@ import CardFooter from './CardFooter';
 import cardProps from '../../prop_validations/card';
 
 export default function Card({ ...props }) {
-  const name = `${props.awayTeam} @ ${props.homeTeam}`;
+  const name = `${props.awayTeam}/${props.homeTeam}`;
 
   return (
     <div className="card mb-3 ml-3 mr-3">
