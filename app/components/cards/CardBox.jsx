@@ -5,16 +5,24 @@ import cardProps from '../../prop_validations/card';
 
 export default function CardBox(props) {
     // cards container rendering all cards
-  const { allCards, joinRoom, socket = {} } = props;
+  const { allCards, joinRoom, socket = {}, togglePlayByPlay } = props;
+
+  const closeCard = (gameId) => {
+    props.leaveRoom(gameId);
+    props.removeCard(gameId);
+  };
 
   return (
-    <div className="card-container col-xs-12 col-s-9">
-      <div className="row">
-        {allCards.map(card => (
+    <div className="col-xs-12 col-md-9">
+      <h1>Dashboard</h1>
+      <div className="card-deck">
+        { allCards.map(card => (
           <Card
             key={ card.gameId }
             joinRoom={ joinRoom }
             socket={ socket }
+            togglePlayByPlay={ togglePlayByPlay }
+            closeCard={ closeCard }
             { ...card }
           />
         ))}
@@ -26,11 +34,13 @@ export default function CardBox(props) {
 CardBox.propTypes = {
   allCards: PropTypes.arrayOf(PropTypes.shape({
     ...cardProps,
+    displayPlayByPlay: PropTypes.bool.isRequired,
     plays: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number.isRequired,
       content: PropTypes.string.isRequired
     }).isRequired).isRequired
   }).isRequired).isRequired,
+  togglePlayByPlay: PropTypes.func.isRequired,
   joinRoom: PropTypes.func.isRequired,
   socket: PropTypes.object
 };

@@ -2,14 +2,30 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const PlayByPlay = ({ ...props }) => {
-  if (props.plays.length) {
+  if (props.display) {
     return (
-      <div className="play-by-play d-flex">
-        <h4>Play-by-play</h4>
+      <div className="card-pbp">
         <ul>
-          { props.plays.map(play => (
-            <li key={ play.id }>{ play.content }</li>
-            ))}
+          { props.plays.map((play) => {
+            switch (play.sport) {
+              case 'nhl':
+                return (
+                  <li key={ play.id } className={ play.style }>
+                    { play.content }
+                  </li>
+                );
+              case 'mlb':
+                return <li key={ play.id } className={ play.style }>{ play.content }</li>;
+              case 'nba':
+                return (
+                  <li key={ play.id }>
+                    <span className="time-play-nba">{ play.time } - </span>
+                    { play.content }
+                  </li>);
+              default:
+                return null;
+            }
+          })}
         </ul>
       </div>
     );
@@ -18,6 +34,7 @@ const PlayByPlay = ({ ...props }) => {
 };
 
 PlayByPlay.propTypes = {
+  display: PropTypes.bool.isRequired,
   plays: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     content: PropTypes.string.isRequired
