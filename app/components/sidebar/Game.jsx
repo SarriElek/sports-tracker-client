@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchCardInfo } from '../../actions/card'
+import { receiveCard } from '../../actions/card';
+import api from '../../lib/api';
 
 const Game = (props) => {
 
@@ -16,7 +17,10 @@ const Game = (props) => {
         time: props.time,
         date: props.date
       };
-    dispatch(fetchCardInfo(game));
+    api.post(`http://localhost:8080/leagues/${props.league}/games/${props.id}`, game).then(response => {
+      console.log(response.response);
+      dispatch(receiveCard(response.response));
+    });
   }
 
   return (

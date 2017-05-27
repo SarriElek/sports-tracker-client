@@ -24,7 +24,7 @@ export default function Card({ ...props }) {
         closeCard={ props.closeCard }
       />
     }
-      { props.league === 'mlb' && <CardMainMLB
+      { props.league === 'MLB' && <CardMainMLB
         gameId={ props.gameId }
         league={ props.league }
         homeTeam={ props.homeTeam }
@@ -36,7 +36,7 @@ export default function Card({ ...props }) {
         closeCard={ props.closeCard }
       />
     }
-      { props.league === 'nhl' && <CardMainNHL
+      { props.league === 'NHL' && <CardMainNHL
         gameId={ props.gameId }
         league={ props.league }
         homeTeam={ props.homeTeam }

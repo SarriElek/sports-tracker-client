@@ -4,10 +4,10 @@ import nhl from '../play_filters/nhl';
 import nba from '../play_filters/nba';
 
 
-const BASEBALL = 'mlb';
-const BASKETBALL = 'nba';
-const AMERICAN_FOOTBALL = 'nfl';
-const HOCKEY = 'nhl';
+const BASEBALL = 'MLB';
+const BASKETBALL = 'NBA';
+const AMERICAN_FOOTBALL = 'NFL';
+const HOCKEY = 'NHL';
 
 
 export const receiveCard = (data) => ({
@@ -18,8 +18,8 @@ export const receiveCard = (data) => ({
     display: 'BASIC',
     homeTeam: data.homeTeam,
     awayTeam: data.awayTeam,
-    homeScore: data.homeScore,
-    awayScore: data.awayScore,
+    homeScore: Number(data.homeScore),
+    awayScore: Number(data.awayScore),
     quarter: 0,
     timeRemaining: 0,
     date: data.date,
@@ -31,7 +31,7 @@ export const receiveCard = (data) => ({
 
 function gameSelector(id, json){
   return json.scoreboard.gameScore.find(obj => {
-    return obj.game.ID ==+ id.toString();
+    return obj.game.ID === id.toString();
   });
 }
 
@@ -43,9 +43,11 @@ export const fetchCardInfo = (game) => (dispatch) =>  {
     return fetch(`https://www.mysportsfeeds.com/api/feed/pull/${game.league}/latest/scoreboard.json?fordate=${date}`, {
        method: 'get',
        headers: {
-         'Authorization': 'Basic '+btoa('${username}:${password}'),
+         'Authorization': 'Basic '+btoa('sportsTracker:sportsTracker}'),
          'Accept': 'application/json',
-         'Content-Type': 'application/json'
+         'Content-Type': 'application/json',
+         'Access-Control-Allow-Credentials':true,
+         'Access-Control-Allow-Origin': true
        }
      })
     .then(response => response.json())
@@ -67,7 +69,7 @@ export const fetchCardInfo = (game) => (dispatch) =>  {
       return fetch(`https://www.mysportsfeeds.com/api/feed/pull/${game.league}/latest/game_playbyplay.json?gameid=${game.gameId}`, {
        method: 'get',
        headers: {
-         'Authorization': 'Basic '+btoa('${username}:${password}'),
+         'Authorization': 'Basic '+btoa('sportsTracker:sportsTracker'),
          'Accept': 'application/json',
          'Content-Type': 'application/json'
        }
