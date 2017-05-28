@@ -9,7 +9,6 @@ import cardProps from '../../prop_validations/card';
 
 export default function Card({ ...props }) {
   const name = `${props.awayTeam}/${props.homeTeam}`;
-
   return (
     <div className="game-card">
       { props.league === 'NBA' && <CardMainNBA
@@ -19,9 +18,11 @@ export default function Card({ ...props }) {
         awayTeam={ props.awayTeam }
         homeScore={ props.homeScore }
         awayScore={ props.awayScore }
+        isCompleted={ props.isCompleted }
         quarter={ props.quarter }
         timeRemaining={ props.timeRemaining }
         closeCard={ props.closeCard }
+        startTime={ props.startTime  }
       />
     }
       { props.league === 'MLB' && <CardMainMLB
@@ -30,6 +31,7 @@ export default function Card({ ...props }) {
         awayTeam={ props.awayTeam }
         homeScore={ props.homeScore }
         awayScore={ props.awayScore }
+        isCompleted={ props.isCompleted }
         currentInning={ props.currentInning }
         currentInningHalf={ props.currentInningHalf }
         innings={ props.innings }
@@ -37,6 +39,7 @@ export default function Card({ ...props }) {
         gameStarted={ props.gameStarted }
         gameCompleted={ props.gameCompleted }
         closeCard={ props.closeCard }
+        startTime={ props.startTime }
       />
     }
       { props.league === 'NHL' && <CardMainNHL
@@ -46,10 +49,12 @@ export default function Card({ ...props }) {
         awayTeam={ props.awayTeam }
         homeScore={ props.homeScore }
         awayScore={ props.awayScore }
+        isCompleted={ props.isCompleted }
         period={ props.period }
         periods={ props.periods }
         timeRemaining={ props.timeRemaining }
         closeCard={ props.closeCard }
+        startTime={ props.startTime }
       />
     }
 

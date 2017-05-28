@@ -23,6 +23,15 @@ function cards(state = defaultState, action) {
     case 'REMOVE_CARD': {
       return state.filter(card => card.gameId !== action.gameId);
     }
+    case 'UPDATE_CARDS': {
+      return state.map((card) => {
+        const found = action.some.find((game => game.gameId == card.gameId));
+        if(found){
+          return found;
+        }
+        return card;
+      })
+    }
     default:
       return state;
   }

@@ -13,7 +13,6 @@ const PlayByPlay = ({ ...props }) => {
   //   transitionLeaveTimeout={ 800 }
   // >
   if (props.display) {
-    console.log(props);
     return (
       <div className="game-card-pbp">
         <ul>

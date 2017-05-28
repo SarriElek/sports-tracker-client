@@ -21,10 +21,21 @@ const CardMainMLB = ({ ...props }) => (
         </div>
       </div>
     </div>
-
-    <div className="mlb-innings">
-      { props.currentInningHalf } of { ordinalize(props.currentInning)}
-    </div>
+    { (props.innings.length !==0 && !props.isCompleted) &&
+      <div className="mlb-innings">
+        { props.currentInningHalf } of { ordinalize(props.currentInning)}
+      </div>
+    }
+    { props.innings.length === 0 &&
+      <div className="mlb-innings">
+        { props.startTime }
+      </div>
+    }
+    { (props.innings.length !== 0 && props.isCompleted) &&
+      <div className="mlb-innings">
+        Game Completed my friend
+      </div>
+    }
 
     {/* eslint-disable react/no-array-index-key */}
     {/* TODO add support for extra innings, styling should work already */}

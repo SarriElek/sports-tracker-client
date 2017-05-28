@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import moment from 'moment';
 import { receiveMLB, receiveNBA, receiveNHL, receiveNFL } from '../actions/api';
 import LeagueItem from '../components/sidebar/LeagueItem';
 import api from '../lib/api';
-
-const BASEBALL = 'MLB';
-const BASKETBALL = 'NBA';
-const AMERICAN_FOOTBALL = 'NFL';
-const HOCKEY = 'NHL';
 
 class Sidebar extends Component {
 
@@ -26,7 +20,6 @@ class Sidebar extends Component {
 
   componentDidMount() {
     const { dispatch } = this.props;
-    const date = moment().format('YYYYMMDD');
     api.get(`http://localhost:8080/leagues/nhl`).then(response => {
       dispatch(receiveNHL(response.response));
     });

@@ -49,7 +49,7 @@ const CardMainNHL = ({ ...props }) => (
             { [...Array(3)].map((x, i) => <td key={ i }>{ props.periods[i] ? props.periods[i].awayScore : '' }</td>) }
             { props.periods.length > 3 && props.periods.map((period, i) => {
               if (i > 2) {
-                return <td key={ i + 10 }>{ props.periods[i] ? props.periods[i].awayScore : '' }</td>;
+                return <td key={ i + 10 }>{ period ? period.awayScore : '' }</td>;
               }
               return null;
             })}
@@ -61,7 +61,7 @@ const CardMainNHL = ({ ...props }) => (
             { [...Array(3)].map((x, i) => <td key={ i }>{ props.periods[i] ? props.periods[i].homeScore : '' }</td>) }
             { props.periods.length > 3 && props.periods.map((period, i) => {
               if (i > 2) {
-                return <td key={ i + 10 }>{ props.periods[i] ? props.periods[i].homeScore : '' }</td>;
+                return <td key={ i + 10 }>{ period ? period.homeScore : '' }</td>;
               }
               return null;
             })}

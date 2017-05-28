@@ -9,7 +9,7 @@ const Game = (props) => {
   const add = (props) => {
     const {dispatch} = props;
     const game = {
-        gameId: props.id,
+        gameId: props.gameId,
         league: props.league,
         homeTeam: props.homeTeam.Abbreviation,
         awayTeam: props.awayTeam.Abbreviation,
@@ -17,8 +17,7 @@ const Game = (props) => {
         time: props.time,
         date: props.date
       };
-    api.post(`http://localhost:8080/leagues/${props.league}/games/${props.id}`, game).then(response => {
-      console.log(response.response);
+    api.post(`http://localhost:8080/leagues/${props.league}/games/${props.gameId}`, game).then(response => {
       dispatch(receiveCard(response.response));
     });
   }
@@ -36,7 +35,7 @@ const Game = (props) => {
 
 Game.propTypes = {
   league: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  gameId: PropTypes.string.isRequired,
   location: PropTypes.string.isRequired,
   awayTeam: PropTypes.object.isRequired,
   homeTeam: PropTypes.object.isRequired,
