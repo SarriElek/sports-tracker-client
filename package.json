@@ -1,10 +1,10 @@
 {
   "name": "sports-tracker-client",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "sports tracker client",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register",
     "build": "webpack -p --config=webpack.config.js",
     "build-dev": "webpack --config=webpack.config.js",
     "start": "webpack-dev-server"
@@ -17,17 +17,21 @@
   "license": "ISC",
   "devDependencies": {
     "babel-eslint": "^7.2.3",
+    "chai": "^4.0.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.1",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^5.0.3",
+    "eslint-plugin-mocha": "^4.9.0",
     "eslint-plugin-react": "^7.0.1",
+    "mocha": "^3.4.2",
     "redux-devtools": "^3.4.0",
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
@@ -41,6 +45,9 @@
     "postcss-loader": "^2.0.5",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
+    "react-dnd": "^2.4.0",
+    "react-dnd-html5-backend": "^2.4.1",
+    "react-dnd-multi-backend": "^2.3.7",
     "react-dom": "^15.5.4",
     "react-masonry-component": "^5.0.5",
     "react-modal": "^1.7.7",

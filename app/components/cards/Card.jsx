@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { findDOMNode } from 'react-dom';
+import { DragSource, DropTarget } from 'react-dnd';
+
 import CardMainNBA from './CardMainNBA';
 import CardMainNHL from './CardMainNHL';
 import CardMainMLB from './CardMainMLB';
@@ -7,71 +10,84 @@ import PlayByPlay from './PlayByPlay';
 import CardFooter from './CardFooter';
 import cardProps from '../../prop_validations/card';
 
-export default function Card({ ...props }) {
-  const name = `${props.awayTeam}/${props.homeTeam}`;
-  return (
-    <div className="game-card">
-      { props.league === 'NBA' && <CardMainNBA
-        gameId={ props.gameId }
-        league={ props.league }
-        homeTeam={ props.homeTeam }
-        awayTeam={ props.awayTeam }
-        homeScore={ props.homeScore }
-        awayScore={ props.awayScore }
-        isCompleted={ props.isCompleted }
-        quarter={ props.quarter }
-        timeRemaining={ props.timeRemaining }
-        closeCard={ props.closeCard }
-        startTime={ props.startTime  }
-      />
-    }
-      { props.league === 'MLB' && <CardMainMLB
-        gameId={ props.gameId }
-        homeTeam={ props.homeTeam }
-        awayTeam={ props.awayTeam }
-        homeScore={ props.homeScore }
-        awayScore={ props.awayScore }
-        isCompleted={ props.isCompleted }
-        currentInning={ props.currentInning }
-        currentInningHalf={ props.currentInningHalf }
-        innings={ props.innings }
-        plays={ props.plays }
-        gameStarted={ props.gameStarted }
-        gameCompleted={ props.gameCompleted }
-        closeCard={ props.closeCard }
-        startTime={ props.startTime }
-      />
-    }
-      { props.league === 'NHL' && <CardMainNHL
-        gameId={ props.gameId }
-        league={ props.league }
-        homeTeam={ props.homeTeam }
-        awayTeam={ props.awayTeam }
-        homeScore={ props.homeScore }
-        awayScore={ props.awayScore }
-        isCompleted={ props.isCompleted }
-        period={ props.period }
-        periods={ props.periods }
-        timeRemaining={ props.timeRemaining }
-        closeCard={ props.closeCard }
-        startTime={ props.startTime }
-      />
+const cardSource = {
+  beginDrag(props) {
+    return {
+      id: props.gameId,
+      index: props.index
+    };
+  }
+};
+const cardTarget = {
+  drop(props, monitor, component) {
+    const dragIndex = monitor.getItem().index;
+    const hoverIndex = props.index;
+    // Don't replace items with themselves
+    if (dragIndex === hoverIndex) {
+      return;
     }
 
-      <PlayByPlay plays={ props.plays } display={ props.displayPlayByPlay } />
+    // const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
+    // const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+    // const clientOffset = monitor.getClientOffset();
+    // const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 
-      <CardFooter
-        name={ name }
-        socket={ props.socket }
-        joinRoom={ props.joinRoom }
-        postJoinRoom={ props.postJoinRoom }
-        gameId={ props.gameId }
-        togglePlayByPlay={ props.togglePlayByPlay }
-        gameStarted={ props.gameStarted }
-      />
-    </div>
-  );
+    // if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+    //   return;
+    // }
+    // if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+    //   return;
+    // }
+
+    props.moveCard(dragIndex, hoverIndex);
+    // monitor.getItem().index = hoverIndex;
+  }
+};
+
+@DropTarget('card', cardTarget, connect => ({
+  connectDropTarget: connect.dropTarget()
+}))
+@DragSource('card', cardSource, (connect, monitor) => ({
+  connectDragSource: connect.dragSource(),
+  isDragging: monitor.isDragging()
+}))
+export default class Card extends React.Component {
+
+  render() {
+    const { isDragging, connectDragSource, connectDropTarget } = this.props;
+    const name = `${this.props.awayTeam}/${this.props.homeTeam}`;
+    const opacity = isDragging ? 0.5 : 1;
+
+    return connectDragSource(connectDropTarget(
+      <div className="game-card" style={ { opacity } }>
+        { this.props.league === 'NBA' && <CardMainNBA
+          { ...this.props }
+        />
+    }
+        { this.props.league === 'MLB' && <CardMainMLB
+          { ...this.props }
+        />
+    }
+        { this.props.league === 'NHL' && <CardMainNHL
+          { ...this.props }
+        />
+    }
+
+        <PlayByPlay plays={ this.props.plays } display={ this.props.displayPlayByPlay } />
+
+        <CardFooter
+          name={ name }
+          joinRoom={ this.props.joinRoom }
+          postJoinRoom={ this.props.postJoinRoom }
+          gameId={ this.props.gameId }
+          togglePlayByPlay={ this.props.togglePlayByPlay }
+          gameStarted={ this.props.gameStarted }
+        />
+      </div>
+    ));
+  }
 }
+
 
 Card.propTypes = {
   ...cardProps,

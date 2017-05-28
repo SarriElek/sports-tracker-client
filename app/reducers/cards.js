@@ -8,7 +8,7 @@ function cards(state = defaultState, action) {
       if (state.find(card => card.gameId === action.game.gameId)) {
         return [...state];
       }
-      return  [...state, action.game];
+      return [...state, action.game];
     case 'TOGGLE_PLAY_BY_PLAY': {
       return state.map((card) => {
         if (card.gameId === action.gameId) {
@@ -31,6 +31,14 @@ function cards(state = defaultState, action) {
         }
         return card;
       })
+    }
+    case 'REPOSITION_CARD': {
+      const { from, to } = action;
+      if (from < 0 || from >= state.length || to < 0 || to >= state.length) return state;
+      const newArray = state.slice();
+      newArray[from] = state[to];
+      newArray[to] = state[from];
+      return newArray;
     }
     default:
       return state;
