@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import CardBox from '../components/cards/CardBox';
-import { joinRoom, leaveRoom, postJoinRoom } from '../actions/chat';
+import { joinRoom, leaveRoom } from '../actions/chat';
 import { togglePlayByPlay, removeCard, repositionCard } from '../actions/cards';
 import { socketAction } from '../middlewares/websocket';
 import api from '../lib/api';

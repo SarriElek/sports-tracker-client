@@ -8,10 +8,10 @@ const CardMainNHL = ({ ...props }) => {
   let timeString;
   if (props.plays.length !== 0 && props.isCompleted) {
     timeString = 'Final';
-  } else if (props.plays.length !==0 && !props.isCompleted) {
+  } else if (props.plays.length !== 0 && !props.isCompleted) {
     timeString = `${ordinalize(props.period)} - ${props.timeRemaining}`;
   } else {
-    timeString = props.startTime;
+    timeString = `${props.startTime} - ${props.date.replace('2017-', '').replace('-', '/')}/2017`;
   }
 
   return (
@@ -33,20 +33,19 @@ const CardMainNHL = ({ ...props }) => {
         </div>
       </div>
 
-      <div className="nhl-time">
+      <div className="nhl-time pb-2">
         { timeString }
       </div>
 
       {/* eslint-disable react/no-array-index-key */}
-      {/* TODO add support for extra innings, styling should work already */}
       { props.gameStarted && <div className="nhl-score">
         <table>
           <thead>
             <tr>
               { [...Array(4)].map((x, i) => <th key={ i } className="nhl-score-periods">{ i || '' }</th>) }
-              { props.period.length > 3 && props.period.map((period, i) => {
+              { props.periods.length > 3 && props.periods.map((period, i) => {
                 if (i > 2) {
-                  return <th key={ i + 10 } className="nhl-score-periods">{ period.period }</th>;
+                  return <th key={ i + 10 } className="nhl-score-periods">{ `OT${period.period - 3}` }</th>;
                 }
                 return null;
               })}

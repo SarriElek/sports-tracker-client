@@ -11,14 +11,13 @@ const CardFooter = ({ ...props }) => {
       input: '',
       unread: false
     };
-    props.postJoinRoom(id);
     props.joinRoom(room);
   };
 
   return (
     <div className="game-card-footer">
       { props.gameStarted && <a
-        className="game-card-pbp-btn"
+        className="game-card-pbp-btn d-flex flex-column"
         onClick={ () => props.togglePlayByPlay(props.gameId) }
         role="button"
         tabIndex={ 0 }
