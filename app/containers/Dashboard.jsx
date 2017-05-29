@@ -17,7 +17,7 @@ class Dashboard extends Component {
   componentDidMount() {
     const HOST = location.origin.replace('8081', '8080');
     const { dispatch } = this.props;
-    api.get('${HOST}/leagues/mlb/users/34').then((response) => {
+    api.get('http/leagues/mlb/users/34').then((response) => {
       response.response.forEach(card => {
         api.post(`${HOST}/leagues/${card.league}/games/${card.gameId}`, card).then((response) => {
           dispatch(receiveCard(response.response));
@@ -39,13 +39,12 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  joinRoom,
-  leaveRoom,
+  leaveRoom: socketAction(joinRoom),
   togglePlayByPlay,
   removeCard,
   repositionCard,
   dispatch,
-  postJoinRoom: socketAction(postJoinRoom)
+  joinRoom: socketAction(joinRoom)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
