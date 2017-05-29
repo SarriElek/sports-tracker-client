@@ -15,7 +15,7 @@ export default class TopNav extends Component {
   // check for sessions on page refresh
   componentDidMount(){
     $.ajax({
-      url: 'http://localhost:8080/checkifloggedin',
+      url: '/checkifloggedin',
       dataType: 'json',
       type: 'GET',
       xhrFields: { withCredentials: true },

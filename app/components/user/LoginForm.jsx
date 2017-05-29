@@ -35,7 +35,7 @@ export default class LoginForm extends Component {
     }
 
     $.ajax({
-      url: 'http://localhost:8080/login',
+      url: '/login',
       dataType: 'json',
       type: 'POST',
       data: formData,

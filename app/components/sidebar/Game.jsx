@@ -18,7 +18,7 @@ const Game = (props) => {
       time: props.time,
       date: props.date
     };
-    api.post(`http://localhost:8080/leagues/${props.league}/games/${props.gameId}`, game).then((response) => {
+    api.post(`${HOST}/leagues/${props.league}/games/${props.gameId}`, game).then((response) => {
       dispatch(receiveCard(response.response));
     });
   };

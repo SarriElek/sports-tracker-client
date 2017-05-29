@@ -16,12 +16,10 @@ class Dashboard extends Component {
 
   componentDidMount() {
     const HOST = location.origin.replace('8081', '8080');
-    console.log(this.props);
     const { dispatch } = this.props;
-    api.get('http://localhost:8080/leagues/mlb/users/34').then((response) => {
+    api.get('${HOST}/leagues/mlb/users/34').then((response) => {
       response.response.forEach(card => {
-        console.log('db card object', card);
-        api.post(`http://localhost:8080/leagues/${card.league}/games/${card.gameId}`, card).then((response) => {
+        api.post(`${HOST}/leagues/${card.league}/games/${card.gameId}`, card).then((response) => {
           dispatch(receiveCard(response.response));
         });
       })
