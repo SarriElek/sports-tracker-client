@@ -56,6 +56,7 @@ export default class CardBox extends React.Component {
               closeCard={ this.closeCard }
               moveCard={ this.moveCard }
               index={ i }
+              notify={ this.props.notify }
               { ...card }
             />
         ))}
