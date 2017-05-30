@@ -23,7 +23,7 @@ class Sidebar extends Component {
     const HOST = location.origin.replace('8081', '8080');
 
     const { dispatch } = this.props;
-    api.get(`${HOST}/leagues/nhl`).then((response) => {
+    api.get(`http://localhost:8080/leagues/nhl`).then((response) => {
       dispatch(receiveNHL(response.response));
     });
     // api.get(`${HOST}/leagues/nba`).then((response) => {
@@ -36,12 +36,14 @@ class Sidebar extends Component {
     //   dispatch(receiveMLB(response.response));
     // });
 
-    api.get('${HOST}/leagues/mlb/users/34').then((response) => {
-      response.response.forEach(card => {
-        api.post(`${HOST}/leagues/${card.league}/games/${card.gameId}`, card).then((response) => {
-          dispatch(receiveCard(response.response));
-        });
-      })
+    api.get(`${HOST}/users/get`).then((response) => {
+      if(Object.keys(response.response).length){
+        response.response.forEach(card => {
+          api.post(`http://localhost:8080/leagues/${card.league}/games/${card.gameId}`, card).then((response) => {
+            dispatch(receiveCard(response.response));
+          });
+        })
+      }
     });
   }
 
