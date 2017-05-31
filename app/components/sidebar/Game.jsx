@@ -7,17 +7,17 @@ import api from '../../lib/api';
 const Game = (props) => {
   const HOST = location.origin.replace('8081', '8080');
 
-  const add = (props) => {
-    const { dispatch } = props;
+  const add = (gameProps) => {
+    const { dispatch } = gameProps;
     const game = {
-      gameId: props.gameId,
-      league: props.league,
-      homeTeam: props.homeTeam.Abbreviation,
-      awayTeam: props.awayTeam.Abbreviation,
-      time: props.time,
-      date: props.date
+      gameId: gameProps.gameId,
+      league: gameProps.league,
+      homeTeam: gameProps.homeTeam.Abbreviation,
+      awayTeam: gameProps.awayTeam.Abbreviation,
+      time: gameProps.time,
+      date: gameProps.date
     };
-    api.post(`${HOST}/leagues/${props.league}/games/${props.gameId}`, game).then((response) => {
+    api.post(`${HOST}/leagues/${gameProps.league}/games/${gameProps.gameId}`, game).then((response) => {
       dispatch(receiveCard(response.response));
     });
     $('.sidebar').removeClass('show');
@@ -37,8 +37,8 @@ const Game = (props) => {
 Game.propTypes = {
   league: PropTypes.string.isRequired,
   gameId: PropTypes.number.isRequired,
-  awayTeam: PropTypes.object.isRequired,
-  homeTeam: PropTypes.object.isRequired,
+  awayTeam: PropTypes.shape({}).isRequired,
+  homeTeam: PropTypes.shape({}).isRequired,
   time: PropTypes.string.isRequired
 };
 
