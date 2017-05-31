@@ -23,18 +23,18 @@ class Sidebar extends Component {
     const HOST = location.origin.replace('8081', '8080');
 
     const { dispatch } = this.props;
-    api.get(`${HOST}/leagues/nhl`).then((response) => {
+    api.get(`${HOST}/leagues/NHL`).then((response) => {
       dispatch(receiveNHL(response.response));
     });
-    // api.get(`${HOST}/leagues/nba`).then((response) => {
-    //   dispatch(receiveNBA(response.response));
-    // });
-    // api.get(`${HOST}/leagues/nfl`).then((response) => {
-    //   dispatch(receiveNFL(response.response));
-    // });
-    // api.get(`${HOST}/leagues/mlb`).then((response) => {
-    //   dispatch(receiveMLB(response.response));
-    // });
+    api.get(`${HOST}/leagues/NBA`).then((response) => {
+      dispatch(receiveNBA(response.response));
+    });
+    api.get(`${HOST}/leagues/NFL`).then((response) => {
+      dispatch(receiveNFL(response.response));
+    });
+    api.get(`${HOST}/leagues/MLB`).then((response) => {
+      dispatch(receiveMLB(response.response));
+    });
 
     api.get(`${HOST}/users/get`).then((response) => {
       if(Object.keys(response.response).length){

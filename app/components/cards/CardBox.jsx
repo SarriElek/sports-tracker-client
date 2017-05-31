@@ -25,7 +25,7 @@ export default class CardBox extends React.Component {
     this.props.leaveRoom(gameId);
     this.props.removeCard(gameId);
     const gameid = { gameId }
-    api.post(`${HOST}/users/remove`, gameid).then(result => console.log('works'));
+    api.post(`${HOST}/users/remove`, gameid).then(result => {});
   };
 
   moveCard = (dragIndex, hoverIndex) => {
