@@ -74,6 +74,11 @@ export default class RegForm extends Component {
         this.props.notify(regSuccess);
       });
     })
+    .then(result => {
+      console.error('A problem with registration. Error:', result);
+      regError.message = `${result.message}`;
+      this.props.notify(regError);
+    })
     // handle status code !== 200
     .catch((err) => {
       console.error('A problem with registration. Error:', err);

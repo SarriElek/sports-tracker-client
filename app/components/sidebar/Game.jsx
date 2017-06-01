@@ -12,8 +12,10 @@ const Game = (props) => {
     const game = {
       gameId: gameProps.gameId,
       league: gameProps.league,
-      homeTeam: gameProps.homeTeam.Abbreviation,
-      awayTeam: gameProps.awayTeam.Abbreviation,
+      homeTeam: gameProps.homeTeam,
+      homeTeamId: gameProps.homeTeamId,
+      awayTeam: gameProps.awayTeam,
+      awayTeamId: gameProps.awayTeamId,
       time: gameProps.time,
       date: gameProps.date
     };
@@ -27,7 +29,7 @@ const Game = (props) => {
     <div className="game-container">
       <a onClick={ () => add(props) } role="button">
         <li className="d-flex justify-content-center game pt-2 pb-2">
-          {props.awayTeam.Abbreviation} @ {props.homeTeam.Abbreviation} ({props.time})
+          {props.awayTeam} @ {props.homeTeam} ({props.time})
         </li>
       </a>
     </div>
@@ -37,8 +39,10 @@ const Game = (props) => {
 Game.propTypes = {
   league: PropTypes.string.isRequired,
   gameId: PropTypes.number.isRequired,
-  awayTeam: PropTypes.shape({}).isRequired,
-  homeTeam: PropTypes.shape({}).isRequired,
+  awayTeam: PropTypes.string.isRequired,
+  awayTeamId: PropTypes.string.isRequired,
+  homeTeam: PropTypes.string.isRequired,
+  homeTeamId: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired
 };
 

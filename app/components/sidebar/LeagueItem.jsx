@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Game from './Game';
 
 const LeagueItem = ({ leagueClick, league, gameData, isActive, addCard }) => {
+  console.log(gameData);
   const activeLeagueClass = `d-flex justify-content-center league-heading pl-0 pt-3 pb-3 nav-link ${isActive ? 'active' : ''}`;
 
   return (
