@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { receiveMLB, receiveNBA, receiveNHL, receiveNFL } from '../actions/api';
-import { receiveCard } from '../actions/card';
+import { addNotification as notify } from 'reapop';
+import { receiveCard, addCard, receiveMLB, receiveNBA, receiveNHL, receiveNFL } from '../actions';
 import GameList from '../components/sidebar/GameList';
 
 const Sidebar = props => (
@@ -30,7 +30,9 @@ const mapDispatchToProps = {
   receiveNBA,
   receiveNHL,
   receiveNFL,
-  receiveCard
+  receiveCard,
+  notify,
+  addCard
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

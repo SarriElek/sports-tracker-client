@@ -38,7 +38,6 @@ const CardMainMLB = ({ ...props }) => {
 
 
       {/* eslint-disable react/no-array-index-key */}
-      {/* TODO add support for extra innings, styling should work already */}
       <div className="mlb-score">
         <table>
           <thead>
@@ -46,7 +45,7 @@ const CardMainMLB = ({ ...props }) => {
               { [...Array(10)].map((x, i) => <th key={ i } className="mlb-score-innings">{ i || '' }</th>) }
               { props.innings.length > 9 && props.innings.map((inning, i) => {
                 if (i > 8) {
-                  return <th key={ i + 10 } className="mlb-score-innings">{ inning.inning }</th>;
+                  return <th key={ i + 10 } className="mlb-score-innings">{ inning['@number'] }</th>;
                 }
                 return null;
               })}

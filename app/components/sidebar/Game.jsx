@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { receiveCard } from '../../actions/card';
+import moment from 'moment';
+import { receiveCard } from '../../actions';
 import api from '../../lib/api';
 
 const Game = (props) => {
@@ -12,24 +13,26 @@ const Game = (props) => {
     const game = {
       gameId: gameProps.gameId,
       league: gameProps.league,
-      homeTeam: gameProps.homeTeam,
-      homeTeamId: gameProps.homeTeamId,
-      awayTeam: gameProps.awayTeam,
-      awayTeamId: gameProps.awayTeamId,
+      homeTeam: gameProps.homeTeam.Abbreviation,
+      awayTeam: gameProps.awayTeam.Abbreviation,
       time: gameProps.time,
       date: gameProps.date
     };
+    props.addCard(game.gameId, game.homeTeam, game.awayTeam, game.time);
     api.post(`${HOST}/leagues/${gameProps.league}/games/${gameProps.gameId}`, game).then((response) => {
       dispatch(receiveCard(response.response));
+    }).catch((err) => {
+      console.log(`Error adding card: ${err.message}`);
     });
     $('.sidebar').removeClass('show');
   };
-
+  const dateFormatted = moment(props.date).format('MMM Do');
+  const timeString = props.league === 'MLB' ? props.time : `${props.time} ${dateFormatted}`;
   return (
     <div className="game-container">
       <a onClick={ () => add(props) } role="button">
         <li className="d-flex justify-content-center game pt-2 pb-2">
-          {props.awayTeam} @ {props.homeTeam} ({props.time})
+          {props.awayTeam.Abbreviation} @ {props.homeTeam.Abbreviation} ({timeString})
         </li>
       </a>
     </div>
@@ -39,11 +42,11 @@ const Game = (props) => {
 Game.propTypes = {
   league: PropTypes.string.isRequired,
   gameId: PropTypes.number.isRequired,
-  awayTeam: PropTypes.string.isRequired,
-  awayTeamId: PropTypes.string.isRequired,
-  homeTeam: PropTypes.string.isRequired,
-  homeTeamId: PropTypes.string.isRequired,
-  time: PropTypes.string.isRequired
+  awayTeam: PropTypes.shape({}).isRequired,
+  homeTeam: PropTypes.shape({}).isRequired,
+  time: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  addCard: PropTypes.func.isRequired
 };
 
 export default connect()(Game);

@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import Masonry from 'react-masonry-component';
 import { DragDropContext } from 'react-dnd';
 import MultiBackend, { Preview } from 'react-dnd-multi-backend';
-import HTML5toTouch from 'react-dnd-multi-backend/lib/HTML5toTouch';
 import dndBackend from '../../lib/dndBackend';
 import Card from './Card';
+import EmptyDashboard from '../EmptyDashboard';
 import cardProps from '../../prop_validations/card';
 import api from '../../lib/api';
 
@@ -24,8 +24,11 @@ export default class CardBox extends React.Component {
     const HOST = location.origin.replace('8081', '8080');
     this.props.leaveRoom(gameId);
     this.props.removeCard(gameId);
-    const gameid = { gameId }
-    api.post(`${HOST}/users/remove`, gameid).then(result => {});
+    const gameid = { gameId };
+    api.post(`${HOST}/users/remove`, gameid).then((result) => { console.log(result); })
+    .catch((error) => {
+      console.log(error);
+    });
   };
 
   moveCard = (dragIndex, hoverIndex) => {
@@ -43,6 +46,7 @@ export default class CardBox extends React.Component {
     return (
       <main className={ chatActive ? 'dashboard chat-active' : 'dashboard' }>
         <h1>Dashboard</h1>
+        { allCards.length === 0 && <EmptyDashboard showModal={ this.props.showModal } /> }
         <Masonry
           className="game-card-box"
           elementType={ 'div' }
@@ -60,7 +64,7 @@ export default class CardBox extends React.Component {
               showModal={ this.props.showModal }
               { ...card }
             />
-        ))}
+            ))}
         </Masonry>
         <Preview generator={ this.generatePreview } />
       </main>
@@ -69,14 +73,22 @@ export default class CardBox extends React.Component {
 }
 
 CardBox.propTypes = {
-  allCards: PropTypes.arrayOf(PropTypes.shape({
-    ...cardProps,
-    displayPlayByPlay: PropTypes.bool.isRequired,
-    plays: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      content: PropTypes.string.isRequired
-    }).isRequired).isRequired
-  }).isRequired).isRequired,
+  allCards: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.shape({
+      ...cardProps,
+      displayPlayByPlay: PropTypes.bool.isRequired,
+      plays: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        content: PropTypes.string.isRequired
+      }).isRequired).isRequired
+    }),
+    PropTypes.shape({
+      homeTeam: PropTypes.string.isRequired,
+      awayTeam: PropTypes.string.isRequired,
+      gameId: PropTypes.number.isRequired,
+      isLoading: PropTypes.bool.isRequired
+    })
+  ])).isRequired,
   togglePlayByPlay: PropTypes.func.isRequired,
   repositionCard: PropTypes.func.isRequired,
   leaveRoom: PropTypes.func.isRequired,

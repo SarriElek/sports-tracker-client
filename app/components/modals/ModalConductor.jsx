@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import RegForm from './RegForm';
 import LoginForm from './LoginForm';
 import ShareForm from './ShareForm';
+import NotifyForm from './NotifyForm';
 
-const ModalConductor = ({ modal, closeModal, notify, login, receiveCard }) => {
+const ModalConductor = ({ modal, closeModal, notify, login, addCard, receiveCard }) => {
   switch (modal.modal) {
     case 'NONE':
       return null;
@@ -14,6 +15,7 @@ const ModalConductor = ({ modal, closeModal, notify, login, receiveCard }) => {
           close={ closeModal }
           notify={ notify }
           login={ login }
+          addCard={ addCard }
           receiveCard={ receiveCard }
         />
       );
@@ -33,6 +35,14 @@ const ModalConductor = ({ modal, closeModal, notify, login, receiveCard }) => {
           { ...modal.info }
         />
       );
+    case 'NOTIFY':
+      return (
+        <NotifyForm
+          close={ closeModal }
+          notify={ notify }
+          { ...modal.info }
+        />
+      );
     default:
       return null;
   }
@@ -42,6 +52,7 @@ ModalConductor.propTypes = {
   closeModal: PropTypes.func.isRequired,
   notify: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
+  addCard: PropTypes.func.isRequired,
   receiveCard: PropTypes.func.isRequired,
   modal: PropTypes.shape({
     modal: PropTypes.string.isRequired,

@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import Game from './Game';
 
 const LeagueItem = ({ leagueClick, league, gameData, isActive, addCard }) => {
-  console.log(gameData);
   const activeLeagueClass = `d-flex justify-content-center league-heading pl-0 pt-3 pb-3 nav-link ${isActive ? 'active' : ''}`;
-
+  const gameSchedule = gameData.reduce(
+    (acc, cur) => acc.concat(cur),
+    []
+  );
   return (
     <ul className="nav nav-pills mb-0 flex-column">
       <li className="nav-item" data-toggle="collapse" data-target={ `#${league}` }>
@@ -20,7 +22,7 @@ const LeagueItem = ({ leagueClick, league, gameData, isActive, addCard }) => {
         </div>
       </li>
       <ul className="sub-menu collapse pl-0 league-heading" id={ league }>
-        { gameData.map(game => (
+        { gameSchedule.map(game => (
           <Game
             key={ game.gameId }
             league={ league }
@@ -28,8 +30,8 @@ const LeagueItem = ({ leagueClick, league, gameData, isActive, addCard }) => {
             { ...game }
           />
         ))}
-        { gameData.length === 0 && <div className="game-container">
-          <li className="d-flex justify-content-center no-game pt-2 pb-2 pl-0">Sorry, no games today</li>
+        { gameSchedule.length === 0 && <div className="game-container">
+          <li className="d-flex justify-content-center no-game pt-2 pb-2 pl-0">Coming soon!</li>
         </div> }
       </ul>
     </ul>
@@ -37,7 +39,7 @@ const LeagueItem = ({ leagueClick, league, gameData, isActive, addCard }) => {
 };
 
 LeagueItem.propTypes = {
-  gameData: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  gameData: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.shape({}))).isRequired,
   leagueClick: PropTypes.func.isRequired,
   addCard: PropTypes.func.isRequired,
   league: PropTypes.string.isRequired,
